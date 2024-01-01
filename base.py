@@ -57,6 +57,8 @@ print('yshape='+str(y))
 print('y1='+str(y1))
 print('y1shape='+str(y1.shape))
 # define model
+print('architecture')
+print('shape='+str(n_steps)+' '+str(n_features))
 visible = Input(shape=(n_steps, n_features))	
 cnn = Conv1D(filters=64, kernel_size=2, activation='relu')(visible)
 cnn = MaxPooling1D(pool_size=2)(cnn)
@@ -71,6 +73,7 @@ output3 = Dense(1)(cnn)
 # tie together
 model = Model(inputs=visible, outputs=[output1, output2, output3])
 model.compile(optimizer='adam', loss='mse')
+print(model.summary())
 # fit model
 print('fitting')
 model.fit(X, [y1,y2,y3], epochs=2000, verbose=0)
